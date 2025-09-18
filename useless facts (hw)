@@ -1,0 +1,40 @@
+import requests
+url="https://uselessfacts.jsph.pl/api/v2/facts/random?language=en"
+
+
+
+def get_facts():
+    response=requests.get(url)
+    fact=response.json()
+    source=fact["source"]
+    source_url=fact["source_url"]
+    language=fact["language"]
+    permalink=fact["permalink"]
+    text=fact["text"]
+
+
+    return source, source_url, language, permalink, text
+
+def main():
+    while True:
+        s, su, l, pl, t=get_facts()
+        user=input("Do you want to know some random or useless stuff?(y/n)")
+        if user=="y":
+            if "goat" in t:
+                print("hi")
+            print(f"\n{t}\n")
+
+            more=input("Do you want to know where this came from?(y/n)")
+            if more=="y":
+                print(f"This came from {s}, specifically {su}.\nThe API link was {pl}, and all of this was in {l}.\n\n")
+            else:
+                print("Ok.\n")
+                break
+            
+        else:
+            print("\n\n\nAwwwwwww.")
+            break
+
+
+if __name__=="__main__":
+    main()
